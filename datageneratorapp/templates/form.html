@@ -93,12 +93,12 @@
 
 <body>
     <div class="form-container">
-        <form action="/ChannelAPIView" method="post" >
+        <form action="/ChannelAPIView" method="post">
             {% csrf_token %}
             <h1>Master Scenario</h1>
 
             <label for="uin"><b>UIN Number:</label></b>
-            <input type="text" id="uin_number" name="uin_number">
+            <input type="text" id="uin_number" name="uin_number" required>
 
             <label for="channel"><b>Channel:</label></b>
             <div class="checkbox-group">
@@ -333,8 +333,12 @@
                         value="Non Smoker"><label for="nonSmoker">Non Smoker</label></div>
             </div>
 
-            <input type="submit" value="Submit">
+            <input type="submit" name = "button2" value="Submit" >
+            <input type="submit" name = "button1" class="btn btn-success" value="Download existing scenario data">
+
+            
         </form>
+        
     </div>
 
     <script>
@@ -422,12 +426,12 @@
         handleSelectAll('selectAllSmokerCategory', 'smoker_category');
     </script>
 
-    <script>
-        function clearForm() {
-            document.getElementById("myForm").reset(); // Resets the form
-            return false; // Prevents the form from actually submitting
-        }
-    </script>
+<script>
+    function clearForm() {
+        document.getElementById("myForm").reset(); // Resets the form
+        return false; // Prevents the form from actually submitting
+    }
+</script>
 
 </body>
 
