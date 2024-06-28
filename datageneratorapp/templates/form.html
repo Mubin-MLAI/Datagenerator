@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Master Scenario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            height: 80vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555555;
+        }
+
+        input[type="text"],
+        select {
+            width: calc(50% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .minmax-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .minmax-input {
+            width: calc(50% - 10px);
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form action="/ChannelAPIView" method="post" >
+            {% csrf_token %}
+            <h1>Master Scenario</h1>
+
+            <label for="uin"><b>UIN Number:</label></b>
+            <input type="text" id="uin_number" name="uin_number">
+
+            <label for="channel"><b>Channel:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllChannels"
+                        name="selectAllChannels"><label for="selectAllChannels"><b>Select All Channels</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="individualAgents" name="channel"
+                        value="Individual Agents"><label for="individualAgents">Individual Agents</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="corporateAgents" name="channel"
+                        value="Corporate Agents"><label for="corporateAgents">Corporate Agents</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="brokers" name="channel" value="Brokers"><label
+                        for="brokers">Brokers</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="bancassurance" name="channel"
+                        value="Bancassurance"><label for="bancassurance">Bancassurance</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="corporateSolutions" name="channel"
+                        value="Corporate Solutions"><label for="corporateSolutions">Corporate Solutions</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="directMarketing" name="channel"
+                        value="Direct Marketing"><label for="directMarketing">Direct Marketing</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="insuranceMarketingFirms" name="channel"
+                        value="Insurance Marketing Firms (IMF)"><label for="insuranceMarketingFirms">Insurance Marketing
+                        Firms (IMF)</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="online" name="channel" value="Online"><label
+                        for="online">Online</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="posps" name="channel"
+                        value="Point of Sales Persons (POSPs)"><label for="posps">Point of Sales Persons (POSPs)</label>
+                </div>
+                <div class="checkbox-label"><input type="checkbox" id="csc" name="channel"
+                        value="Common Service Centre (CSC)/CPSC-SPV"><label for="csc">Common Service Centre
+                        (CSC)/CPSC-SPV</label></div>
+            </div>
+
+            <label for="proposalCategory"><b>Proposal Category:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllCategories"
+                        name="selectAllCategories"><label for="selectAllCategories"><b>Select All Proposal
+                            Categories</b></label></div>
+                <div class="checkbox-label"><input type="checkbox" id="individual" name="proposal_category"
+                        value="Individual"><label for="individual">Individual</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="employerEmployee" name="proposal_category"
+                        value="Employer-Employee"><label for="employerEmployee">Employer-Employee</label></div>
+            </div>
+
+            <!-- <label for="mudrankStampDuty"><b>Mudrank & Stamp Duty:</label></b>
+            <input type="text" id="mudrankStampDuty" name="mudrankStampDuty">
+
+            <label for="gst"><b>GST:</label></b>
+            <input type="text" id="gst" name="gst"> -->
+
+            <label for="entryAge"><b>Entry Age:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minEntryAge" name="min_entry_age" placeholder="Min Entry Age"
+                    class="minmax-input">
+                <input type="text" id="maxEntryAge" name="max_entry_age" placeholder="Max Entry Age"
+                    class="minmax-input">
+            </div>
+
+            <label for="modes_of_premiums"><b>Modes of Premiums:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllModes_Of_Premiums"
+                        name="selectAllModes_Of_Premiums"><label for="selectAllModes_Of_Premiums"><b>Select All Modes Of
+                            Premiums</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="monthly" name="modes_of_premiums"
+                        value="Monthly"><label for="monthly">Monthly</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="quarterly" name="modes_of_premiums"
+                        value="Quarterly"><label for="quarterly">Quarterly</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="halfYearly" name="modes_of_premiums"
+                        value="Half Yearly"><label for="halfYearly">Half Yearly</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="annually" name="modes_of_premiums"
+                        value="Annually"><label for="annually">Annually</label></div>
+            </div>
+
+            <label for="premium"><b>Premium:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minPremium" name="min_premium" placeholder="Min Premium" class="minmax-input">
+                <input type="text" id="maxPremium" name="max_premium" placeholder="Max Premium" class="minmax-input">
+            </div>
+
+            <label for="basicSA"><b>Basic SA:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minBasicSA" name="min_basic_sa" placeholder="Min SA" class="minmax-input">
+                <input type="text" id="maxBasicSA" name="max_basic_sa" placeholder="Max SA" class="minmax-input">
+            </div>
+
+            <label for="policyTerm"><b>Policy Term:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minPolicyTerm" name="min_policy_term" placeholder="Min Policy Term"
+                    class="minmax-input">
+                <input type="text" id="maxPolicyTerm" name="max_policy_term" placeholder="Max Policy Term"
+                    class="minmax-input">
+            </div>
+
+            <label for="ppt"><b>PPT:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minPPT" name="min_ppt" placeholder="Min PPT" class="minmax-input">
+                <input type="text" id="maxPPT" name="max_ppt" placeholder="Max PPT" class="minmax-input">
+                <!-- <input type="text" id="specificPPT" name="specificPPT" placeholder="Specific PPT" class="minmax-input"> -->
+            </div>
+
+            <label for="maturityAge"><b>Maturity Age:</label></b>
+            <div class="minmax-container">
+                <input type="text" id="minMaturityAge" name="min_maturity_age" placeholder="Min Maturity Age"
+                    class="minmax-input">
+                <input type="text" id="maxMaturityAge" name="max_maturity_age" placeholder="Max Maturity Age"
+                    class="minmax-input">
+            </div>
+
+            <label for="case_type"><b>Case Type/Sub standard lives cases:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllCase_Type"
+                        name="selectAllCase_Type"><label for="selectAllCase_Type"><b>Select All Case Type</b></label>
+                </div>
+
+                <div class="checkbox-label"><input type="checkbox" id="staff" name="case_type" value="STAFF"><label
+                        for="staff">STAFF</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="nri" name="case_type" value="NRI"><label
+                        for="nri">NRI</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="emrExtra" name="case_type"
+                        value="EMR Extra"><label for="emrExtra">EMR Extra</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="nsap" name="case_type" value="NSAP"><label
+                        for="nsap">NSAP</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="occupationExtra" name="case_type"
+                        value="Occupation Extra"><label for="occupationExtra">Occupation Extra</label></div>
+            </div>
+
+            <label for="standard_age_proof"><b>Standard age proof:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllStandard_Age_Proof"
+                        name="selectAllStandard_Age_Proof"><label for="selectAllStandard_Age_Proof"><b>Select All
+                            Standard Age Proof</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="aadharCompleteDOB" name="standard_age_proof"
+                        value="Aadhar with complete DOB"><label for="aadharCompleteDOB">Aadhar with complete DOB</label>
+                </div>
+                <div class="checkbox-label"><input type="checkbox" id="passport" name="standard_age_proof"
+                        value="Passport"><label for="passport">Passport</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="pan" name="standard_age_proof" value="PAN"><label
+                        for="pan">PAN</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="aadharIncompleteDOB" name="standard_age_proof"
+                        value="Aadhar with incomplete DOB"><label for="aadharIncompleteDOB">Aadhar with incomplete
+                        DOB</label></div>
+            </div>
+
+            <label for="payer_third_party_category"><b>PAYER/Third party category:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllPayer_Third_Party_Category"
+                        name="selectAllPayer_Third_Party_Category"><label
+                        for="selectAllPayer_Third_Party_Category"><b>Select All Payer Third Party Category</b></label>
+                </div>
+
+                <div class="checkbox-label"><input type="checkbox" id="payer" name="payer_third_party_category"
+                        value="PAYER"><label for="payer">PAYER</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="thirdParty" name="payer_third_party_category"
+                        value="Third Party"><label for="thirdParty">Third Party</label></div>
+            </div>
+
+            <label for="functionality"><b>Functionality:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllFunctionality"
+                        name="selectAllFunctionality"><label for="selectAllFunctionality"><b>Select All
+                            Functionality</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="changeInMode" name="functionality"
+                        value="Change in mode"><label for="changeInMode">Change in mode</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="lapsation" name="functionality"
+                        value="Lapsation"><label for="lapsation">Lapsation</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="assignment" name="functionality"
+                        value="Assignment"><label for="assignment">Assignment</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="nominationSingle" name="functionality"
+                        value="Nomination - Single"><label for="nominationSingle">Nomination - Single</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="nominationMultiple" name="functionality"
+                        value="Nomination - Multiple"><label for="nominationMultiple">Nomination - Multiple</label>
+                </div>
+                <div class="checkbox-label"><input type="checkbox" id="dematRemat" name="functionality"
+                        value="Demat/Remat"><label for="dematRemat">Demat/Remat</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaimRepudiationFraud" name="functionality"
+                        value="Death Claim Repudiation - Fraud"><label for="deathClaimRepudiationFraud">Death Claim
+                        Repudiation - Fraud</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="renewalCashering" name="functionality"
+                        value="Renewal Cashering"><label for="renewalCashering">Renewal Cashering</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="reissueSuspend" name="functionality"
+                        value="Re-issue suspend"><label for="reissueSuspend">Re-issue suspend</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="dobChanges" name="functionality"
+                        value="DOB changes"><label for="dobChanges">DOB changes</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaimStaff" name="functionality"
+                        value="Death Claim - Staff"><label for="deathClaimStaff">Death Claim - Staff</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="revivalManual" name="functionality"
+                        value="Revival - Manual"><label for="revivalManual">Revival - Manual</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaimRepudiationNDinPF" name="functionality"
+                        value="Death Claim Repudiation - ND in PF"><label for="deathClaimRepudiationNDinPF">Death Claim
+                        Repudiation - ND in PF</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="flc" name="functionality" value="FLC"><label
+                        for="flc">FLC</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="policyCancellation" name="functionality"
+                        value="Policy cancellation"><label for="policyCancellation">Policy cancellation</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaimSuicide" name="functionality"
+                        value="Death Claim - Suicide"><label for="deathClaimSuicide">Death Claim - Suicide</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaimReopen" name="functionality"
+                        value="Death Claim - Re-open"><label for="deathClaimReopen">Death Claim - Re-open</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="proposalDepositRefund" name="functionality"
+                        value="Proposal Deposit Refund"><label for="proposalDepositRefund">Proposal Deposit
+                        Refund</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="revivalAuto" name="functionality"
+                        value="Revival_Auto"><label for="revivalAuto">Revival_Auto</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="deathClaim1stYear" name="functionality"
+                        value="Death claim in 1st year - Admitted Clear"><label for="deathClaim1stYear">Death claim in
+                        1st year - Admitted Clear</label></div>
+            </div>
+
+            <label for="gender"><b>Gender:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllGender" name="selectAllGender"><label
+                        for="selectAllGender"><b>Select All Gender</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="male" name="gender" value="male"><label
+                        for="male">Male</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="female" name="gender" value="female"><label
+                        for="female">Female</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="thirdGender" name="gender"
+                        value="third Gender"><label for="thirdGender">Third Gender</label></div>
+            </div>
+
+            <label for="smokerCategory"><b>Smoker Category:</label></b>
+            <div class="checkbox-group">
+                <div class="checkbox-label"><input type="checkbox" id="selectAllSmokerCategory"
+                        name="selectAllSmokerCategory"><label for="selectAllSmokerCategory"><b>Select All Smoker
+                            Category</b></label></div>
+
+                <div class="checkbox-label"><input type="checkbox" id="smoker" name="smoker_category"
+                        value="smoker"><label for="smoker">Smoker</label></div>
+                <div class="checkbox-label"><input type="checkbox" id="nonSmoker" name="smoker_category"
+                        value="Non Smoker"><label for="nonSmoker">Non Smoker</label></div>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        // Function to handle "Select All" checkboxes
+        function handleSelectAll(parentCheckboxId, childCheckboxesName) {
+            const parentCheckbox = document.getElementById(parentCheckboxId);
+            const childCheckboxes = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe1 = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe2 = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe3 = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe4 = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe5 = document.getElementsByName(childCheckboxesName);
+            const childCheckboxe6 = document.getElementsByName(childCheckboxesName);
+
+            parentCheckbox.addEventListener('change', function () {
+                for (let checkbox of childCheckboxes) {
+                    checkbox.checked = parentCheckbox.checked;
+                }
+            });
+
+            for (let checkbox of childCheckboxes) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxes].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe1) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe1].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe2) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe2].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe3) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe3].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe4) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe4].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe5) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe5].every(c => c.checked);
+                });
+            }
+
+            for (let checkbox of childCheckboxe6) {
+                checkbox.addEventListener('change', function () {
+                    parentCheckbox.checked = [...childCheckboxe6].every(c => c.checked);
+                });
+            }
+        }
+
+
+
+
+
+
+        // Call handleSelectAll for each group of checkboxes
+        handleSelectAll('selectAllChannels', 'channel');
+        handleSelectAll('selectAllCategories', 'proposal_category');
+        handleSelectAll('selectAllModes_Of_Premiums', 'modes_of_premiums');
+        handleSelectAll('selectAllCase_Type', 'case_type');
+        handleSelectAll('selectAllStandard_Age_Proof', 'standard_age_proof');
+        handleSelectAll('selectAllPayer_Third_Party_Category', 'payer_third_party_category');
+        handleSelectAll('selectAllFunctionality', 'functionality');
+        handleSelectAll('selectAllGender', 'gender');
+        handleSelectAll('selectAllSmokerCategory', 'smoker_category');
+    </script>
+
+    <script>
+        function clearForm() {
+            document.getElementById("myForm").reset(); // Resets the form
+            return false; // Prevents the form from actually submitting
+        }
+    </script>
+
+</body>
+
+
+
+</html>
