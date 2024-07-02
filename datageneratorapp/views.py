@@ -114,27 +114,27 @@ def downloadcsvfunc(request, uin_number):
             # Print the result
 
             for i in separated_elements: 
-                channelstr =  'Check With The ' + str(i)
+                channelstr =  'Check With The channel: ' + str(i)
                 channellist.append(channelstr)
                 # case_typestr =  'Check With The ' + str(j)
                 # case_typelist.append(case_typestr)
             for j in separated_elements_case_type: 
-                case_typestr =  'Check With The ' + str(j)
+                case_typestr =  'Check With The case type:' + str(j)
                 case_typelist.append(case_typestr)
             for k in eparated_elements_modes_of_premiums: 
-                modes_of_premiumsstr =  'Check With The ' + str(k)
+                modes_of_premiumsstr =  'Check With The modes of premiums: ' + str(k)
                 modeofpremlist.append(modes_of_premiumsstr)
             for l in separated_elements_entry_age: 
                 entry_agestr =   str(l)
                 entry_agelist.append(entry_agestr)
             for m in separated_elements_standard_age_proof: 
-                standard_age_proofstr =  'Check With The ' + str(m)
+                standard_age_proofstr =  'Check With The standard age proof: ' + str(m)
                 standard_age_prooflist.append(standard_age_proofstr)
             for n in separated_elements_payer_third_party_category: 
-                payer_third_party_categorystr =  'Check With The ' + str(n)
+                payer_third_party_categorystr =  'Check With The payer third party category: ' + str(n)
                 payer_third_party_categorylist.append(payer_third_party_categorystr)
             for o in separated_elements_functionality: 
-                functionalitystr =  'Check With The ' + str(o)
+                functionalitystr =  'Check With The functionality: ' + str(o)
                 functionalitylist.append(functionalitystr)
             for p in separated_elements_premium: 
                 premiumstr =  str(p)
@@ -152,13 +152,13 @@ def downloadcsvfunc(request, uin_number):
                 genderstr =  'Check With The ' + str(t)
                 genderlist.append(genderstr)
             for u in separated_elements_smoker_category: 
-                smoker_categorystr = 'Check With The ' +   str(u)
+                smoker_categorystr = 'Check With The smoker category: ' +   str(u)
                 smoker_categorylist.append(smoker_categorystr)
             for v in separated_elements_ppt: 
                 pptstr = 'Check With The ' +  str(v)
                 pptlist.append(pptstr)
             for w in separated_elements_proposal_category: 
-                proposal_categorystr = 'Check With The ' +  str(w)
+                proposal_categorystr = 'Check With The proposal category: ' +  str(w)
                 proposal_categorylist.append(proposal_categorystr)
             uinlist.append(uin_number)
 
@@ -237,7 +237,7 @@ def calculate_date(age, operation):
     elif operation == 'add':
         return current_date - relativedelta(years=age)
     
-def entryagefunc(request, min_entry_age,max_entry_age):
+def entryagefunc(request, min_entry_age,max_entry_age, string):
     min_age = []
     
     min_age.append(min_entry_age)
@@ -263,22 +263,22 @@ def entryagefunc(request, min_entry_age,max_entry_age):
         age = int(age_str)
         if age == (int(min_entry_age) - 1):
             newlistdate = calculate_date(age, 'subtract')
-            new_lst[i] =  'Min Fail Case ' + str(newlistdate)
+            new_lst[i] =  'Min ' + str(string) + ' Fail Case: ' + str(newlistdate)
         elif age == (int(max_entry_age) - 1):
             newlistdate3 = calculate_date(age, 'subtract')
-            new_lst[i] =  'Max Pass Case ' + str(newlistdate3)
+            new_lst[i] =  'Max ' + str(string) + ' Pass Case: ' + str(newlistdate3)
         if age == (int(min_entry_age)):
             newlistdate1 = calculate_date(age, 'subtract')
-            new_lst[i] =  'Min Pass Case ' + str(newlistdate1)
+            new_lst[i] =  'Min ' + str(string) + ' Pass Case: ' + str(newlistdate1)
         elif age == (int(max_entry_age)):
             newlistdate4 = calculate_date(age, 'subtract')
-            new_lst[i] =  'Max Pass Case ' + str(newlistdate4)
+            new_lst[i] =  'Max ' + str(string) + ' Pass Case: ' + str(newlistdate4)
         if age == (int(min_entry_age) + 1):
             newlistdate2 = calculate_date(age, 'subtract')
-            new_lst[i] =  'Min Pass Case ' + str(newlistdate2)
+            new_lst[i] =  'Min ' + str(string) + ' Pass Case: ' + str(newlistdate2)
         elif age == (int(max_entry_age) + 1):
             newlistdate5 = calculate_date(age, 'subtract')
-            new_lst[i] =  'Max Fail Case ' + str(newlistdate5)
+            new_lst[i] =  'Max ' + str(string) + ' Fail Case: ' + str(newlistdate5)
         
             
         # elif age in [int(max_entry_age) - 1, int(max_entry_age), int(max_entry_age) + 1]:
@@ -289,18 +289,18 @@ def entryagefunc(request, min_entry_age,max_entry_age):
 
     return new_lst
 
-def premiumfunc(request, a,b):
+def premiumfunc(request, a,b, param):
     min_age = []
     min_age.append(a)
-    start_value = 'Min Fail Case ' + str(int(min_age[0]) - 1)
-    end_value = 'Min Pass Case ' +  str(int(min_age[0]) + 1)
+    start_value = 'Min ' + str(param) + ' Fail Case: ' + str(int(min_age[0]) - 1)
+    end_value = 'Min ' + str(param) + ' Pass Case: ' +  str(int(min_age[0]) + 1)
     result_list1 = insert_values(min_age, start_value, end_value)
     # print(result_list1)
 
     min_age = []
     min_age.append(b)
-    start_value = 'Max Pass Case ' + str(int(min_age[0]) - 1)
-    end_value = 'Max Fail Case ' + str(int(min_age[0]) + 1)
+    start_value = 'Max ' + str(param) + ' Pass Case: ' + str(int(min_age[0]) - 1)
+    end_value = 'Max ' + str(param) + ' Fail Case: ' + str(int(min_age[0]) + 1)
     result_list2 = insert_values(min_age, start_value, end_value)
     # print(result_list2)
 
@@ -309,9 +309,9 @@ def premiumfunc(request, a,b):
     # Modify the list for specific cases
     for i in range(len(new_lst)):
         if new_lst[i] == a:
-            new_lst[i] = 'Min Pass Case ' + str(a)
+            new_lst[i] = 'Min ' + str(param) + ' Pass Case: ' + str(a)
         elif new_lst[i] == b:
-            new_lst[i] = 'Max Pass Case ' + str(b)
+            new_lst[i] = 'Max ' + str(param) + ' Pass Case: ' + str(b)
 
     return new_lst
 
@@ -351,14 +351,23 @@ class ChannelAPIView(APIView):
             if not selected_channels:
                 return Response({"error": "At least one channel is required"}, status=status.HTTP_400_BAD_REQUEST)
             
-            entryagedatelist =  entryagefunc(request, min_entry_age,max_entry_age)
-            premiumlist =  premiumfunc(request, min_premium,max_premium)
-            basicsalist =  premiumfunc(request, min_basic_sa,max_basic_sa)
-            policy_termlist =  premiumfunc(request, min_policy_term,max_policy_term)
-            pptlist =  premiumfunc(request, min_ppt,max_ppt)
-            maturity_agelist =  entryagefunc(request, min_maturity_age,max_maturity_age)
+            age_str =  'entry age '
+            entryagedatelist =  entryagefunc(request, min_entry_age,max_entry_age, age_str)
+            premium_str = 'premium'
+            premiumlist =  premiumfunc(request, min_premium,max_premium, premium_str)
+            basicsa_str = 'basic sa'
+            basicsalist =  premiumfunc(request, min_basic_sa,max_basic_sa, basicsa_str)
+            policy_term_str = 'policy term'
+            policy_termlist =  premiumfunc(request, min_policy_term,max_policy_term, policy_term_str)
+            ppt_str =  'ppt'
+            pptlist =  premiumfunc(request, min_ppt,max_ppt,ppt_str)
+            mat_str =  'maturity age'
+            maturity_agelist =  entryagefunc(request, min_maturity_age,max_maturity_age, mat_str)
 
 
+            if AllScenario.objects.filter(uin_number=uin_number).exists():
+                return Response({"error": "UIN Number is already exist!"}, status=status.HTTP_400_BAD_REQUEST)
+            
             channel_obj = AllScenario.objects.create(uin_number=uin_number, 
                                                     channel=selected_channels,
                                                     case_type=case_type_ip,
