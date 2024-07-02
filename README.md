@@ -25,6 +25,10 @@ STEP 12:  Copy the IP from CMD and paste into the brower and then start using.
 
 Give Contribution .... Thank You!
 
+Contributing
+
+If you are interested in contributing to the project, please create a fork of the repository and submit a pull request. All contributions are welcome and appreciated.
+
 
 
 
